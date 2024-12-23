@@ -1,4 +1,7 @@
 # Medibook
+<div align="center">
+<img width="329" alt="image" src="https://github.com/ChloeLee01/medibook_front/blob/main/src/assets/medi_logo.png?raw=true">
+</div>
 
 
 # Voluntain Web Page v2.0
