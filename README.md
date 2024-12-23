@@ -1,6 +1,8 @@
 # Medibook
 <div align="center" margin="20px 0">
+    <br/><br/>
 <img width="329" alt="image" src="https://github.com/ChloeLee01/medibook_front/blob/main/src/assets/medi_logo.png?raw=true">
+    <br/><br/>
 </div>
 
 
