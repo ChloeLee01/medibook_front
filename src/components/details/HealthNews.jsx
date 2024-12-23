@@ -12,9 +12,11 @@ const HealthNews = () => {
 
   // 화면 크기에 따른 글자 수 제한 함수 추가
   const getTruncateLength = () => {
-    if (window.innerWidth >= 1280) { // xl
+    if (window.innerWidth >= 1280) {
+      // xl
       return { title: 70, desc: 150 };
-    } else if (window.innerWidth >= 1024) { // lg
+    } else if (window.innerWidth >= 1024) {
+      // lg
       return { title: 50, desc: 100 };
     } else {
       return { title: 30, desc: 60 };
@@ -30,8 +32,8 @@ const HealthNews = () => {
       setTruncateLength(getTruncateLength());
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -40,15 +42,21 @@ const HealthNews = () => {
         const response = await fetch(
           "/v1/search/news.xml?query=의약품&display=30"
         );
-
+        console.log(response)
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        
+
         const text = await response.text();
+        console.log(text)
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(text, "application/xml");
         const items = Array.from(xmlDoc.getElementsByTagName("item"));
+
+        // 데이터 파싱이 정상적으로 되는지 확인
+        console.log(items);
 
         const news = items.map((item) => {
           const title = item.getElementsByTagName("title")[0]?.textContent;
@@ -145,12 +153,16 @@ const HealthNews = () => {
                     onClick={() => handleNewsClick(news)}
                   >
                     <h2 className="text-xl font-bold mb-2 group-hover:text-blue-700">
-                      {news.title.replace(/<\/?b>/g, "").length > truncateLength.title
-                        ? `${news.title.replace(/<\/?b>/g, "").slice(0, truncateLength.title)}...`
+                      {news.title.replace(/<\/?b>/g, "").length >
+                      truncateLength.title
+                        ? `${news.title
+                            .replace(/<\/?b>/g, "")
+                            .slice(0, truncateLength.title)}...`
                         : news.title.replace(/<\/?b>/g, "")}
                     </h2>
                     <p className="text-gray-600 text-sm">
-                      {news.description.replace(/<\/?b>/g, "").length > truncateLength.desc
+                      {news.description.replace(/<\/?b>/g, "").length >
+                      truncateLength.desc
                         ? `${news.description
                             .replace(/<\/?b>/g, "")
                             .slice(0, truncateLength.desc)}...`
@@ -179,8 +191,11 @@ const HealthNews = () => {
                   onClick={() => handleNewsClick(news)}
                 >
                   <span className="line-clamp-1">
-                    {news.title.replace(/<\/?b>/g, "").length > truncateLength.title
-                      ? `${news.title.replace(/<\/?b>/g, "").slice(0, truncateLength.title)}...`
+                    {news.title.replace(/<\/?b>/g, "").length >
+                    truncateLength.title
+                      ? `${news.title
+                          .replace(/<\/?b>/g, "")
+                          .slice(0, truncateLength.title)}...`
                       : news.title.replace(/<\/?b>/g, "")}
                   </span>
                 </a>
