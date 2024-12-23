@@ -40,17 +40,25 @@ const HealthNews = () => {
     const fetchNews = async () => {
       try {
         const response = await fetch(
-          "/v1/search/news.xml?query=의약품&display=30"
+          "/v1/search/news.xml?query=의약품&display=30",
+          {
+            headers: {
+              Accept: "application/xml",
+              "Content-Type": "application/xml",
+            },
+          }
         );
-        console.log(response)
+        console.log(response);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        
+        // response의 상태 확인을 위한 로깅
+        console.log("Response headers:", Object.fromEntries(response.headers));
+        console.log("Response type:", response.type);
 
         const text = await response.text();
-        console.log(text)
+        console.log(text);
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(text, "application/xml");
         const items = Array.from(xmlDoc.getElementsByTagName("item"));
